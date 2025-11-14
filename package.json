@@ -1,0 +1,52 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "TruBalance Bodywork Massage LLC secure backend for managing bookings, client records, and massage therapy services.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'No tests, skipping' && exit 0",
+    "dev": "ts-node dev --respawn --transpile-only index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "deploy": "git subtree push --prefix apps/backend backend main",
+    "firebase:deploy": "firebase deploy --only functions",
+    "firebase:emulate": "firebase emulators:start"
+  },
+  "keywords": [
+    "TruBalance Bodywork",
+    "TruBalance Bodywork Massage",
+    "massage therapy utah",
+    "massage orem",
+    "orem massage therapist",
+    "orem massage therapy",
+    "muscle relaxation",
+    "stress relief",
+    "pain relief",
+    "massage booking",
+    "massage booking system",
+    "pain management",
+    "therapist"
+  ],
+  "author": "Tapt Designs",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^6.3.0",
+    "@sanity/client": "link:sanity/client@^7.8.2",
+    "@sanity/image-url": "sanity/image-url@^1.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "firebase-admin": "^11.9.0",
+    "firebase-functions": "^4.6.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.2"
+  }
+}
