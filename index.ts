@@ -6,11 +6,12 @@ import { verifyRecaptcha } from "./src/utils/verifyRecaptcha.js"
 import {
   signUp,
   signIn,
+  signInWithPassword,
   getProfile,
   updateProfile,
   deleteUser,
-} from "./src/lib/firebase/auth.js";
-import { authenticate } from "./src/utils/authenticate.js";
+} from "./src/lib/firebase/auth.js"
+import { authenticate } from "./src/utils/authenticate.js"
 
 const app = express()
 
@@ -34,13 +35,14 @@ app.use(express.json())
 const recaptchaClient = new RecaptchaEnterpriseServiceClient()
 
 // --- Public Auth routes ---
-app.post("/auth/signup", signUp);
-app.post("/auth/signin", signIn);
+app.post("/auth/signup", signUp)
+app.post("/auth/signin", signIn)
+app.post("/auth/signin-with-password", signInWithPassword)
 
 // --- Protected routes using authenticate middleware ---
-app.get("/auth/profile/:uid", authenticate, getProfile);
-app.patch("/auth/profile/:uid", authenticate, updateProfile);
-app.delete("/auth/profile/:uid", authenticate, deleteUser);
+app.get("/auth/profile/:uid", authenticate, getProfile)
+app.patch("/auth/profile/:uid", authenticate, updateProfile)
+app.delete("/auth/profile/:uid", authenticate, deleteUser)
 
 // --- Contact route ---
 app.post("/contact", async (req: Request, res: Response) => {
