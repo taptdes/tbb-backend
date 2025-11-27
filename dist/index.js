@@ -3,6 +3,8 @@ import cors from "cors";
 import { db, admin, bucket } from "./firebase.js";
 import { RecaptchaEnterpriseServiceClient } from "@google-cloud/recaptcha-enterprise";
 import { verifyRecaptcha } from "./src/utils/verifyRecaptcha.js";
+import { signUp, signIn, getProfile, updateProfile, deleteUser, } from "./src/lib/firebase/auth.js";
+import { authenticate } from "./src/utils/authenticate.js";
 const app = express();
 // --- Allowed origins for CORS ---
 const allowedOrigins = [
@@ -19,8 +21,14 @@ app.use(cors({
     methods: ["GET", "POST", "OPTIONS"],
 }));
 app.use(express.json());
-// --- Initialize reCAPTCHA client ---
 const recaptchaClient = new RecaptchaEnterpriseServiceClient();
+// --- Public Auth routes ---
+app.post("/auth/signup", signUp);
+app.post("/auth/signin", signIn);
+// --- Protected routes using authenticate middleware ---
+app.get("/auth/profile/:uid", authenticate, getProfile);
+app.patch("/auth/profile/:uid", authenticate, updateProfile);
+app.delete("/auth/profile/:uid", authenticate, deleteUser);
 // --- Contact route ---
 app.post("/contact", async (req, res) => {
     const { name, email, phone, message, recaptchaToken } = req.body;
